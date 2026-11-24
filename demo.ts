@@ -1,3 +1,4 @@
+import "./liquid";
 import { mountTweakPanel, type Control, type ControlKit } from "./panel";
 import { ANIMAL_KEYS, ANIMALS, AnimalEngine, SHARED_CONTROLS, type AnimalKey, type KnobSpec, type Tuning } from "./src";
 import { mountChoices, mountComposer, mountGreeting } from "./ui";
