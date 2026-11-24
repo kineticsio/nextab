@@ -20,11 +20,19 @@ export function mountBookmarks() {
   header.className = "bookmarks-header";
 
   const heading = document.createElement("h2");
-  heading.textContent = "Bookmarks";
+  heading.innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 3.75A2.25 2.25 0 0 1 8.25 1.5h7.5A2.25 2.25 0 0 1 18 3.75v18l-6-3.5-6 3.5v-18Z"/>
+    </svg>
+    <span>Bookmarks</span>
+  `;
 
   const refresh = document.createElement("button");
   refresh.type = "button";
-  refresh.textContent = "Refresh";
+  refresh.className = "bookmarks-refresh";
+  refresh.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 5v4h4M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4"/></svg>`;
+  refresh.title = "Refresh bookmarks";
+  refresh.setAttribute("aria-label", "Refresh bookmarks");
   refresh.addEventListener("click", loadBookmarks);
 
   header.append(heading, refresh);
@@ -66,6 +74,7 @@ export function mountBookmarks() {
         item.className = "bookmark-item";
 
         const link = document.createElement("a");
+        link.className = "bookmark-link";
         link.href = bookmark.url!;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
@@ -94,8 +103,7 @@ export function mountBookmarks() {
 `;
         remove.title = "Remove bookmark";
         remove.setAttribute("aria-label", "Remove bookmark");
-        remove.style.cssText =
-          "border:0;background:transparent;color:inherit;opacity:.65;cursor:pointer;font-size:19px;padding:2px 6px;margin-left:5px;";
+        remove.className = "bookmark-remove";
 
         remove.addEventListener("click", async (event) => {
           event.preventDefault();

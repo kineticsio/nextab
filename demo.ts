@@ -109,6 +109,28 @@ mountChoices(
   }
 );
 
+const animalDock = document.querySelector<HTMLElement>(".top-bar");
+const animalDockToggle = document.querySelector<HTMLButtonElement>(".animal-dock-toggle");
+if (animalDock && animalDockToggle) {
+  const dockKey = "nextab:animal-bar-expanded";
+  const animalChoices = document.querySelector<HTMLElement>("#animal-choices");
+  const setDockOpen = (open: boolean) => {
+    animalDock.classList.toggle("is-open", open);
+    if (animalChoices) animalChoices.inert = !open;
+    animalDockToggle.setAttribute("aria-expanded", String(open));
+    animalDockToggle.setAttribute("aria-label", open ? "Hide animal controls" : "Show animal controls");
+    animalDockToggle.title = open ? "Hide animal controls" : "Show animal controls";
+    try { localStorage.setItem(dockKey, open ? "1" : "0"); } catch { /* Storage may be unavailable. */ }
+  };
+
+  let dockOpen = true;
+  try { dockOpen = localStorage.getItem(dockKey) !== "0"; } catch { /* Use the default. */ }
+  setDockOpen(dockOpen);
+  animalDockToggle.addEventListener("click", () => {
+    setDockOpen(!animalDock.classList.contains("is-open"));
+  });
+}
+
 mountComposer();
 let userName: string | undefined;
 try {
